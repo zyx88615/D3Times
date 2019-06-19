@@ -150,26 +150,35 @@ function renderAxes1(newYScale, yAxis) {
     circlesGroup.call(toolTip);
     circlesGroup.on("mouseover", function(data) {
       toolTip.show(data)
-      d3.select(this).attr("stroke","black")
+      d3.select(this)
+            .transition()
+            .duration(500)
+            .attr("fill", "red")
+            .attr("stroke","black")
+
       console.log(this) 
       console.log(this.getAttribute('value'))
      
       coord=[[this.cx.baseVal.value+10,this.cy.baseVal.value],[650,50],[700,50]]
       coord2=[[this.cx.baseVal.value+10,this.cy.baseVal.value],[650,350],[730,350]]
       var lineG=d3.line()
+
+
       chartGroup.append("path")
       .attr("fill", "none")
       .attr("stroke", "black")
       .attr("stroke-width", 1)
       .attr("class","hello")
       .attr("pointer-events", "none") 
-      .attr("d", lineG(coord));
+      .attr("d", lineG(coord))
+      
+
+
       chartGroup.append("path")
       .attr("fill", "none")
       .attr("stroke", "black")
       .attr("stroke-width", 1)
       .attr("class","hello")
-      .attr("pointer-events", "none") 
       .attr("d", lineG(coord2));
 
       chartGroup.append("circle")
@@ -179,7 +188,34 @@ function renderAxes1(newYScale, yAxis) {
       .attr("class","bigCircle")
       .attr("fill", "darkblue")
       .attr("opacity", "0.7")
-      ;
+
+      if(this.getAttribute('svv')=="PA"){
+      chartGroup.append('image')
+    .attr('xlink:href', `https://www.nass.org/sites/default/files/state-flags/PN.png`)
+    .attr("class", "flag")
+    .attr('width', 100)
+    .attr('height', 100)
+    .attr("y", 200-50)
+    .attr("x", 670)}
+    else if(this.getAttribute('svv')=="KY"){
+      chartGroup.append('image')
+    .attr('xlink:href', `https://www.nass.org/sites/default/files/state-flags/KT.png`)
+    .attr("class", "flag")
+    .attr('width', 100)
+    .attr('height', 100)
+    .attr("y", 200-50)
+    .attr("x", 670)}
+    else{
+      chartGroup.append('image')
+    .attr('xlink:href', `https://www.nass.org/sites/default/files/state-flags/${this.getAttribute('svv')}.png`)
+    .attr("class", "flag")
+    .attr('width', 100)
+    .attr('height', 100)
+    .attr("y", 200-50)
+    .attr("x", 670)}
+    
+
+
 
       if(this.getAttribute('yv')=="healthcare"){
       chartGroup.append("text")
@@ -222,7 +258,7 @@ function renderAxes1(newYScale, yAxis) {
       }
 
       chartGroup.append("text")
-      .attr("y", 200)
+      .attr("y", 150)
       .attr("x", 670)
       .text(this.getAttribute('value'))
       .attr("class", "sometext")
@@ -297,22 +333,35 @@ function renderAxes1(newYScale, yAxis) {
           .attr('fill', 'black')}
 
 
+
     })
 
       // onmouseout event
       .on("mouseout", function(data, index) {
         toolTip.hide(data)
-        d3.select(this).attr("stroke","none")
+        d3.select(this)
+        .transition()
+            .duration(500)
+            .attr("fill", "skyblue")
+        .attr("stroke","none");
         chartGroup.selectAll(".hello").remove()
         chartGroup.selectAll(".bigCircle").remove()
         chartGroup.selectAll(".sometext").remove()
+        chartGroup.selectAll(".flag").remove()
 
         ;
       });
 
+  
+
+
+
+
     return circlesGroup;
   }
   
+
+
 
 
 
@@ -358,6 +407,7 @@ function renderAxes1(newYScale, yAxis) {
     .attr("fill", "skyblue")
     .attr("opacity", "1")
     .attr("value",d=>d.state)
+    .attr("svv", d=>d.abbr)
     .attr("xv",chosenXAxis)
     .attr("yv",chosenYAxis)
     .attr("xvv",d=>d[chosenXAxis])
