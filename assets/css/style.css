@@ -41,3 +41,46 @@ body {
   background: rgb(0, 0, 0,0.75);
   border-radius: 10px;
 }
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 1s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.bigCircle {
+  animation: 0.4s fadeIn;
+  animation-fill-mode: forwards;
+  
+  visibility: hidden;
+}
+
+@keyframes fadeIn {
+  99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+.flag {
+  animation: 0.4s fadeIn;
+  animation-fill-mode: forwards;
+  
+  visibility: hidden;
+}
+
+@keyframes fadeIn {
+  99% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}

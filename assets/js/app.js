@@ -168,8 +168,7 @@ function renderAxes1(newYScale, yAxis) {
       .attr("fill", "none")
       .attr("stroke", "black")
       .attr("stroke-width", 1)
-      .attr("class","hello")
-      .attr("pointer-events", "none") 
+      .attr("class","path")
       .attr("d", lineG(coord))
       
 
@@ -178,7 +177,7 @@ function renderAxes1(newYScale, yAxis) {
       .attr("fill", "none")
       .attr("stroke", "black")
       .attr("stroke-width", 1)
-      .attr("class","hello")
+      .attr("class","path")
       .attr("d", lineG(coord2));
 
       chartGroup.append("circle")
@@ -261,7 +260,7 @@ function renderAxes1(newYScale, yAxis) {
       .attr("y", 150)
       .attr("x", 670)
       .text(this.getAttribute('value'))
-      .attr("class", "sometext")
+      .attr("class", "flag")
       .attr('alignment-baseline', 'middle')
       .style('font-size', '25px')
       .attr("font-weight", "bold")
@@ -344,7 +343,7 @@ function renderAxes1(newYScale, yAxis) {
             .duration(500)
             .attr("fill", "skyblue")
         .attr("stroke","none");
-        chartGroup.selectAll(".hello").remove()
+        chartGroup.selectAll(".path").remove()
         chartGroup.selectAll(".bigCircle").remove()
         chartGroup.selectAll(".sometext").remove()
         chartGroup.selectAll(".flag").remove()
